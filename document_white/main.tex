@@ -46,11 +46,14 @@
 }
 
 \tikzset{
+    % Constants
+        hashangle/.store in=\hashangle,
+        hashangle=50,
     % Styles
         hash/.style={
             pattern={
                 Lines[
-                    angle=50,
+                    angle=\hashangle,
                     distance=3pt,
                     line width=0.7pt,
                 ]
@@ -153,6 +156,15 @@
             % Plane drawing
             \pic[scale=62] 
                 at ([xshift=83mm,yshift=-65mm]current page.north west) {plane};
+
+            % Hashed area in the bottom right corner
+            \pgfmathsetlengthmacro{\hashoffset}{\thickness/tan(\hashangle)}
+            \fill[hash, pattern color=dblue]
+                ($(bottom left inner)!0.25!(bottom right inner)$) coordinate (hash start) --
+                (bottom right inner) --
+                ++(0, \thickness) --
+                ($(hash start) + (\hashoffset, \thickness)$) --
+                cycle;
 
         \end{tikzpicture}
         
