@@ -1,2 +1,3 @@
-# Supaero_latex_template
-Unofficial latex template for supaero documents
+# Supaero latex templates
+
+Unofficial latex templates for supaero documents

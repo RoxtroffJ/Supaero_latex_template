@@ -1,0 +1,188 @@
+\documentclass[a4paper]{report}
+
+\usepackage[          % Editing of the page layout
+    a4paper,
+    top=29mm,
+    bottom=29mm,
+    left=25mm,
+    right=25mm,
+    headheight=14mm,
+    headsep=5mm,
+    footskip=19mm,
+    marginparwidth=15mm,
+    marginparsep=5mm,
+    %showframe,
+]{geometry}
+
+\usepackage[english]{babel}
+
+\usepackage{lmodern}  % Font setup
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{fancyhdr} % Header and footer and page styling
+
+\usepackage{amsmath}  % Mathematical formula, commands, and symbols
+\usepackage{graphicx} % Importing of images
+
+\usepackage{xcolor}   % Color management
+\definecolor{dblue}{RGB}{43,33,113}
+\definecolor{lblue}{RGB}{11,187,239}
+\definecolor{orange}{RGB}{244,153,26}
+
+\usepackage{tikz}     % Drawing
+\usetikzlibrary {
+    calc, 
+    arrows.meta, 
+    angles, 
+    quotes, 
+    backgrounds, 
+    intersections, 
+    through, 
+    3d, 
+    perspective, 
+    patterns,
+    patterns.meta, 
+    spath3
+}
+
+\tikzset{
+    % Styles
+        hash/.style={
+            pattern={
+                Lines[
+                    angle=50,
+                    distance=3pt,
+                    line width=0.7pt,
+                ]
+            }
+        },
+    % Pics
+        pics/plane/.style={
+            code = {
+                \draw[
+                    draw=none,
+                    hash,
+                    pattern color=lblue,
+                    pic actions
+                ]
+                (0,0) 
+                -- (1mm, 0.112903225806452mm) 
+                -- (0.112903225806452mm, -0.290322580645161mm) 
+                -- (0.0938709677419354mm, -0.102741935483871mm)
+                .. controls (0.0841935483870968mm, -0.032258064516129mm)
+                .. cycle;
+            }
+        },
+}
+
+% ------------------------------------------------------------------------
+% REDEFINITION OF MAKETITLE
+% ------------------------------------------------------------------------
+
+\makeatletter
+
+\renewcommand{\maketitle}{% 
+    \vspace*{10mm}    
+
+    \begin{center}
+
+        % Title bold 38pt, tdblue
+        {\color{dblue}\bfseries\fontsize{38}{46}\selectfont \@title \par}
+
+        \vspace{5mm}
+        % Author 24pt, tlblue
+        {\color{lblue}\fontsize{24}{28}\selectfont \@author \par}
+
+        \vspace{5mm}
+        % Date 24pt, tlblue
+        {\color{lblue}\fontsize{14}{16}\selectfont \@date \par}
+    \end{center}
+
+    \vspace{10mm}
+}
+
+\makeatother
+
+% ------------------------------------------------------------------------
+% MAKE TITLE PAGE command
+% ------------------------------------------------------------------------
+
+% Title on a separate, single page. Has custom background and the \maketitle
+% in the middle of the page.
+% Also has optional content.
+% The whole content of the page is centered vertically and horizontally.
+
+\newcommand{\maketitlepage}[1][]{%
+    \thispagestyle{empty} % No header and footer
+    \begin{titlepage}
+        % Custom background
+        \begin{tikzpicture}[remember picture, overlay]
+            % Define margin and thickness
+            \def\margin{1cm}
+            \def\thickness{0.75cm}
+
+            % Coordinates of corners with margin
+            \coordinate (top left) at ([xshift=\margin,yshift=-\margin]current page.north west);
+            \coordinate (top right) at ([xshift=-\margin,yshift=-\margin]current page.north east);
+            \coordinate (bottom left) at ([xshift=\margin,yshift=\margin]current page.south west);
+            \coordinate (bottom right) at ([xshift=-\margin,yshift=\margin]current page.south east);
+
+            % Coordinates of corners with margin and thickness
+            \coordinate (top left inner) at ([xshift=\margin+\thickness,yshift=-\margin-\thickness]current page.north west);
+            \coordinate (top right inner) at ([xshift=-\margin-\thickness,yshift=-\margin-\thickness]current page.north east);
+            \coordinate (bottom left inner) at ([xshift=\margin+\thickness,yshift=\margin+\thickness]current page.south west);
+            \coordinate (bottom right inner) at ([xshift=-\margin-\thickness,yshift=\margin+\thickness]current page.south east);
+
+            % Draw filled border
+            \path [spath/save=outer] 
+                (top left) -- (top right) -- (bottom right) -- (bottom left) -- cycle;
+            \path [spath/save=inner]
+                (top left inner) -- (top right inner) -- (bottom right inner) -- (bottom left inner) -- cycle;
+            \fill [
+                shade,
+                left color=lblue,
+                right color=dblue,
+                shading angle=-30,
+                even odd rule] 
+                [spath/use=outer] 
+                [spath/use=inner];
+
+            % Logo in the top left corner
+            \node[anchor=north west, inner sep=0pt] at (top left) {\includegraphics[height=3.8cm]{logos/LOGO_ISAE-SUPAERO_DRAPEAU_GAUCHE_BLEU-NUIT.png}};
+        
+            % Plane drawing
+            \pic[scale=62] 
+                at ([xshift=83mm,yshift=-65mm]current page.north west) {plane};
+
+        \end{tikzpicture}
+        
+        \vspace*{\fill}
+        \maketitle
+        #1
+        \vspace*{\fill}
+    \end{titlepage}
+}
+
+\newpage
+
+% ------------------------------------------------------------------------
+% EXAMPLE USAGE
+% ------------------------------------------------------------------------
+
+\title{This is the title}
+\author{Author 1 \\ Author 2}
+\date{\today}
+
+\begin{document}
+
+\maketitlepage[
+    My super cool optional title page content
+]
+
+Some text.
+
+\newpage
+
+More text.
+
+\end{document}
