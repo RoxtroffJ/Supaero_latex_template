@@ -1,0 +1,49 @@
+\usepackage[          % Editing of the page layout
+    a4paper,
+    top=29mm,
+    bottom=40mm,
+    left=25mm,
+    right=25mm,
+    headheight=14mm,
+    headsep=5mm,
+    footskip=10mm,
+    marginparwidth=15mm,
+    marginparsep=5mm,
+    %showframe,
+]{geometry}
+
+\usepackage[english]{babel}
+
+\usepackage{lmodern}  % Font setup
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{fancyhdr} % Header and footer and page styling
+\usepackage{titlesec} % Chapter and section styling
+% \usepackage{tocloft}  % Table of contents styling
+
+\usepackage{amsmath}  % Mathematical formula, commands, and symbols
+\usepackage{graphicx} % Importing of images
+
+\usepackage{xcolor}   % Color management
+\definecolor{dblue}{RGB}{43,33,113}
+\definecolor{lblue}{RGB}{11,187,239}
+\definecolor{orange}{RGB}{244,153,26}
+\definecolor{gray}{RGB}{112,111,111}
+
+\color{gray!90!black} % Default text color
+
+\usepackage{tikz}     % Drawing
+\usetikzlibrary {
+    calc, 
+    arrows.meta, 
+    angles, 
+    quotes, 
+    backgrounds, 
+    intersections, 
+    through, 
+    3d, 
+    perspective, 
+    patterns,
+    patterns.meta, 
+    spath3
+}

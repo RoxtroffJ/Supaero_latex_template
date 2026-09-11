@@ -1,0 +1,68 @@
+% ------------------------------------------------------------------------
+% CHAPTER STYLE
+% ------------------------------------------------------------------------
+
+% dblue, 28pt, bold, centered
+\titleformat{\chapter}
+    [display] % shape
+    {\color{dblue}\bfseries\fontsize{28}{34}\selectfont\centering} % format
+    {\chaptertitlename\ \thechapter} % label
+    {20pt} % separation
+    {} % before-code
+
+% ------------------------------------------------------------------------
+% SECTION STYLE
+% ------------------------------------------------------------------------
+
+% lblue, 24pt, bold, left-aligned
+\titleformat{\section}
+    [hang] % shape
+    {\color{lblue}\bfseries\fontsize{24}{28}\selectfont} % format
+    {\thesection} % label
+    {10pt} % separation
+    {} % before-code
+
+\titlespacing{\section}
+    {0pt} % left margin
+    {0pt} % space before
+    {15pt} % space after
+% ------------------------------------------------------------------------
+% SUBSECTION STYLE
+% ------------------------------------------------------------------------
+
+% lblue, 15pt, bold, left-aligned
+\titleformat{\subsection}
+    [hang] % shape
+    {\color{lblue}\bfseries\fontsize{15}{18}\selectfont} % format
+    {\thesubsection} % label
+    {10pt} % separation
+    {} % before-code
+
+\titlespacing{\subsection}
+    {0pt} % left margin
+    {0pt} % space before
+    {10pt} % space after
+
+% ------------------------------------------------------------------------
+% SUBSUBSECTION STYLE
+% ------------------------------------------------------------------------
+
+% lblue, 12pt, bold, left-aligned
+\titleformat{\subsubsection}
+    [hang] % shape
+    {\color{lblue}\bfseries\fontsize{12}{14}\selectfont} % format
+    {\thesubsubsection} % label
+    {10pt} % separation
+    {} % before-code
+
+
+% ------------------------------------------------------------------------
+% TABLE OF CONTENTS STYLE
+% ------------------------------------------------------------------------
+
+% \renewcommand{\cftchapfont}{\color{dblue}}
+% \renewcommand{\cftchappagefont}{\color{dblue}}
+% \renewcommand{\cftsecfont}{\color{lblue}}
+% \renewcommand{\cftsecpagefont}{\color{lblue}}
+% \renewcommand{\cftsubsecfont}{\color{lblue}}
+% \renewcommand{\cftsubsecpagefont}{\color{lblue}}
