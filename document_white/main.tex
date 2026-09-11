@@ -13,6 +13,7 @@
 \input{template_helpers/page_styles.tex}
 \input{template_helpers/maketitle.tex}
 \input{template_helpers/sectionstyling.tex}
+\input{template_helpers/notations_index_commands.tex}
 
 % ------------------------------------------------------------------------
 % EXAMPLE USAGE
@@ -24,6 +25,19 @@
 
 \pagestyle{headings} % Default page style. 'empty' or 'plain' or 'headings'
 
+
+% Math notations
+
+% \defvar{Description}{Symbol}{Expression}{Value}{Unit}{Command}[Unit symbol override]
+% Provides notation index and commands for symbols, expressions, values, and units.
+
+\defvar{Smallest side of a rectangular triangle}{a}{}{}{\meter}{\tria}
+\defvar{Second smallest side of a rectangular triangle}{b}{}{}{\meter}{\trib}
+\defvar{Hypotenuse of a rectangular triangle}{c}{\sqrt{\tria^2 + \trib^2}}{}{\meter}{\tric}
+\addseparator % Adds a separator in the notation index
+\defvar{Quotient of circle perimeter and diameter}{\pi}{}{3.14}{}{\mypi}[-]
+\defvar{Gravitational acceleration}{g}{}{9.81}{\meter\per\second\squared}{\gravacc}
+
 \begin{document}
 
 \maketitlepage[
@@ -32,6 +46,8 @@
 
 \tableofcontents
 
+\makenotationindex
+
 %\chapter[Short chapter]{The super chapter}
 \section{First section}
 \subsection{First subsection}
@@ -39,8 +55,15 @@
 
 Some text. Here is something \highlight{important} I want to talk about: in a rectangular triangle, we have:
 \begin{equation}
-    a^2 + b^2 = c^2
+    \tria^2 + \trib^2 = \tric^2
 \end{equation}
+hence:
+\begin{equation}
+    \tric = \tricexpr
+\end{equation}
+
+Also, $\mypi = \mypiqty$, and $\gravacc = \gravaccval$, 
+errrr, wait, with a unit it's better: $\gravacc = \gravaccqty$.
 
 \newpage
 More text.

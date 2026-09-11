@@ -1,0 +1,127 @@
+\ExplSyntaxOn
+
+\seq_new:N \g_notation_index_seq % Sequence to hold the notation index entries
+
+% \defvar{description}{symbol}{expression}{value}{unit}{command}[unit symbol override]
+\NewDocumentCommand{\defvar}{mmmmmmo}
+{
+    % Define the symbol command
+    \newcommand #6 {{#2}}
+
+    % Expression
+    \IfNoValueF{#3}
+    {
+        \cs_new:cpn { \cs_to_str:N #6 expr } {#3}
+    }
+
+    % Value
+    \IfNoValueF{#4}
+    {
+        \cs_new:cpn { \cs_to_str:N #6 val } {#4}
+    }
+
+    % Unit and quantity
+    \IfBlankTF{#5}
+    {
+        % No unit -> scalar
+        \IfNoValueF{#4}
+        {
+            \cs_new:cpn { \cs_to_str:N #6 qty } {\num{#4}}
+        }
+    }
+    {
+        % Has unit
+        \cs_new:cpn { \cs_to_str:N #6 unit } {#5}
+
+        \IfNoValueF{#4}
+        {
+            \cs_new:cpn { \cs_to_str:N #6 qty } {\qty{#4}{#5}}
+        }
+    }
+
+    % Index line
+    \IfBlankTF{#3}
+       {% No expression
+           \IfNoValueTF{#7}
+            { % No unit override
+              \IfBlankTF{#5}
+              { % No unit
+                \seq_gput_right:Nn \g_notation_index_seq
+                {
+                  \notation_index_row:nnn {#2}{#1}{}
+                }
+              }
+              { % With unit
+                \seq_gput_right:Nn \g_notation_index_seq
+                {
+                  \notation_index_row:nnn {#2}{#1}{\unit{#5}}
+                }
+              }
+            }
+            { % Unit override
+              \seq_gput_right:Nn \g_notation_index_seq
+              {
+                \notation_index_row:nnn {#2}{#1}{#7}
+              }
+            }
+        }
+        {% with expression
+           \IfNoValueTF{#7}
+            { % No unit override
+              \IfBlankTF{#5}
+              { % No unit
+                \seq_gput_right:Nn \g_notation_index_seq
+                {
+                  \notation_index_row:nnn {#2 = #3}{#1}{}
+                }
+              }
+              { % With unit
+                \seq_gput_right:Nn \g_notation_index_seq
+                {
+                  \notation_index_row:nnn {#2 = #3}{#1}{\unit{#5}}
+                }
+              }
+            }
+            { % Unit override
+              \seq_gput_right:Nn \g_notation_index_seq
+              {
+                \notation_index_row:nnn {#2 = #3}{#1}{#7}
+              }
+            }
+        }
+}
+
+\cs_new:Npn \notation_index_row:nnn #1#2#3
+ {
+   $#1$ & \textbf{#2} & [$#3$] \\
+ }
+
+
+% Separator line in the notation index
+\NewDocumentCommand{\addseparator}{}
+ {
+   \seq_gput_right:Nn \g_notation_index_seq
+     {
+       \hline
+     }
+ }
+
+% Command to generate the notation index
+\NewDocumentCommand{\makenotationindex}{}
+ {
+    %\begin{minipage}{\linewidth}
+    {\centering
+        \renewcommand{\arraystretch}{1.35}
+        \begin{longtable}{l l l}
+        \arrayrulecolor{lblue}
+        \caption*{\textbf{\color{dblue} Notations}}\\
+        \hline
+        \seq_map_inline:Nn \g_notation_index_seq {
+            ##1
+        } 
+        \end{longtable}
+    \par}
+    %\end{minipage}
+ }
+
+\ExplSyntaxOff
