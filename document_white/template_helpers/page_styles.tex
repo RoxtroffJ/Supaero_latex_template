@@ -41,9 +41,9 @@
 \makeatletter
 
 % Remove capitalization of chapter and section titles in footer
-\renewcommand{\chaptermark}[1]{%
-    \markboth{\chaptername\hspace{0.5em}\thechapter\hspace{0.5em}#1}{}%
-}
+% \renewcommand{\chaptermark}[1]{%
+%     \markboth{\chaptername\hspace{0.5em}\thechapter\hspace{0.5em}#1}{}%
+% }
 \renewcommand{\sectionmark}[1]{%
     \markright{\thesection\hspace{0.5em}#1}%
 }
@@ -94,9 +94,9 @@
         \vspace{11pt}
 
         % Chapter number + title if applicable
-        \ifnum\value{chapter}>0
-            \color{dblue}\leftmark
-        \fi
+        % \ifnum\value{chapter}>0
+        %     \color{dblue}\leftmark
+        % \fi
 
         \ifnum\value{section}>0
             \color{lblue}\rightmark
