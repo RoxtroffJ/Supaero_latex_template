@@ -6,13 +6,14 @@
     right=25mm,
     headheight=14mm,
     headsep=5mm,
-    footskip=10mm,
+    footskip=13mm,
     marginparwidth=15mm,
     marginparsep=5mm,
     %showframe,
 ]{geometry}
 
-\usepackage[english]{babel}
+\usepackage[english]{babel} % Language
+\usepackage[T1]{fontenc}   % Font encoding
 
 \usepackage{lmodern}  % Font setup
 \renewcommand{\familydefault}{\sfdefault}
@@ -29,11 +30,16 @@
 \definecolor{lblue}{RGB}{11,187,239}
 \definecolor{orange}{RGB}{244,153,26}
 \definecolor{gray}{RGB}{112,111,111}
+\definecolor{dgreen}{RGB}{49,140,44}
+\definecolor{red}{RGB}{217,64,73}
+\definecolor{purple}{RGB}{127,92,163}
 
-\color{gray!90!black} % Default text color
+\colorlet{text}{gray!70!black} % Default text color
+\color{text}
 
 \usepackage{tikz}     % Drawing
 \usetikzlibrary {
+    babel,
     calc, 
     arrows.meta, 
     angles, 
@@ -48,5 +54,25 @@
     spath3
 }
 
+\usepackage{pgfplots}  % Plotting
+\pgfplotsset{compat=1.18} % compatibility mode
+\usepackage{pgfplotstable} % Table management for plotting
+\usepackage{subcaption}   % Subfigures
+
 \usepackage{longtable} % Large tables that can span multiple pages
 \usepackage{siunitx}   % SI units and numbers formatting
+
+\usepackage{listings}  % Code listings
+\lstdefinestyle{supstyle}{
+    keywordstyle=\color{red}\bfseries,
+    stringstyle=\color{dblue},
+    commentstyle=\color{gray},
+    morecomment=[l][\color{dgreen}]{\#},
+}
+
+\usepackage[
+    colorlinks=true,
+    linkcolor=dblue,
+    citecolor=dgreen,
+    urlcolor=dblue,
+]{hyperref} % Clickable table of contents, references, and URLs
