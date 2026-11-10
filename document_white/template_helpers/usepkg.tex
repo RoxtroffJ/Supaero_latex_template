@@ -22,6 +22,10 @@
 \usepackage{titlesec} % Chapter and section styling
 % \usepackage{tocloft}  % Table of contents styling
 
+\usepackage{parskip} % Paragraph spacing
+\setlength{\parindent}{0em}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+
 \usepackage{amsmath}  % Mathematical formula, commands, and symbols
 \usepackage{graphicx} % Importing of images
 
@@ -37,7 +41,10 @@
 \colorlet{text}{gray!70!black} % Default text color
 \color{text}
 
+\usepackage{float} % H figures and tables placement
+
 \usepackage{tikz}     % Drawing
+\usepackage{tikz-3dplot}
 \usetikzlibrary {
     babel,
     calc, 
@@ -52,6 +59,23 @@
     patterns,
     patterns.meta, 
     spath3
+}
+
+% Drawing styles
+\tikzset{
+    % Styles
+    label/.style={fill=white, fill opacity=0.5, text opacity=1},
+    figure axis/.style={thick, ->, gray, >={Stealth[length=2mm, width=2mm]}},
+    geom axis/.style={dashed, gray},
+    velocity/.style={->,>={Stealth[length=2mm, width=2mm]}, red},
+    angl/.style={draw,dblue,->,thick,angle eccentricity=1},
+    len/.style={dblue, <->,thick},
+    force/.style={->,>={Stealth[length=2mm, width=2mm]}, dgreen},
+    %
+    % Pics
+    pics/point/.style={code={
+        \draw[fill=black] (0,0) circle (2pt);
+    }},
 }
 
 \usepackage{pgfplots}  % Plotting
